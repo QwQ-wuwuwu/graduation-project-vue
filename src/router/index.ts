@@ -34,10 +34,6 @@ const router = createRouter({
           component: () => import('@/views/admin/PasswordView.vue')
         },
         {
-          path: 'grouping',
-          component: () => import('@/views/admin/GroupingView.vue')
-        },
-        {
           path: 'process',
           component: () => import('@/views/admin/ProcessView.vue')
         },

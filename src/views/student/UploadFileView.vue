@@ -2,13 +2,18 @@
   <div>
     <input type="file" @change="onFileChange" /> <br />
     <br />
-    <button @click="uploadFile">上传文件</button>
+    <button @click="uploadFile">上传文件</button> <br />
+    <br />
+    <button @click="fn()">点击获取store的processId</button>
   </div>
 </template>
 
 <script lang="ts">
 import axios from '@/axios/index'
 import { ref } from 'vue'
+import { useCounterStore } from '@/stores/counter'
+const store = useCounterStore()
+const processId = store.processId
 const msg = ref<string>('')
 export default {
   data() {
@@ -17,6 +22,9 @@ export default {
     }
   },
   methods: {
+    fn() {
+      console.log(store.login)
+    },
     onFileChange(event) {
       this.file = event.target.files[0]
     },
@@ -25,12 +33,10 @@ export default {
         alert('请选择文件')
         return
       }
-
       const formData = new FormData()
       formData.append('file', this.file)
-
       axios
-        .post('/student/upload/532129', formData)
+        .post(`/student/upload/${processId}`, formData)
         .then((response) => {
           if (response.data.code === 200) {
             alert('文件上传成功！')

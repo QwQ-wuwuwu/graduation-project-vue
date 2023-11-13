@@ -9,8 +9,7 @@ import { RouterView, RouterLink } from 'vue-router'
     <div id="sidebar">
       <ul>
         <li><RouterLink to="/admin/time">设置时间</RouterLink></li>
-        <li><RouterLink to="/admin/password">修改密码</RouterLink></li>
-        <li><RouterLink to="/admin/grouping">分组提交</RouterLink></li>
+        <li><RouterLink to="/admin/password">重置密码</RouterLink></li>
         <li><RouterLink to="/admin/process">过程设定</RouterLink></li>
         <li><RouterLink to="/admin/student">学生导入</RouterLink></li>
         <li><RouterLink to="/admin/teacher">教师导入</RouterLink></li>

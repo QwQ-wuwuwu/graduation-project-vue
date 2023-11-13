@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { reactive, ref } from 'vue'
-
+import { useCounterStore } from '@/stores/counter'
+const store = useCounterStore()
 const count = ref<number>(0)
 let number = 0
 const sum = ref<number>(0)
@@ -21,7 +22,7 @@ let optionProcess = reactive({
 })
 function addProcess() {
   if (!newItem.name || !newItem.score) {
-    alert('打分项名称或分值比例不能为空')
+    alert('打分项名称或分值比例不能为空或0')
     return
   }
   if (count.value > 0) {
@@ -42,7 +43,7 @@ function jian() {
   }
   return count.value--
 }
-async function fn() {
+function fn() {
   if (!process.processName) {
     alert('阶段名称不能为空')
     return
@@ -56,6 +57,17 @@ async function fn() {
     method: 'post',
     url: '/admin/process',
     data: process
+  }).then((response) => {
+    const code = response.data.code
+    const processId = response.data.data.process.id
+    console.log(processId)
+    store.setProcessId(processId) // 添加全局变量过程id号
+    console.log('set完成' + store.processId)
+    if (code === 200) {
+      alert('添加成功！\n' + '现阶段是' + process.processName)
+      return
+    }
+    alert('添加失败')
   })
 }
 function shanchu(index) {

@@ -7,7 +7,7 @@ let number = ref<string>('')
 let password = ref<string>('')
 let role = ref<string>('')
 let agree = ''
-const counterStore = useCounterStore()
+const counterStore = useCounterStore() // 实例化
 
 function login() {
   if (!agree) {
