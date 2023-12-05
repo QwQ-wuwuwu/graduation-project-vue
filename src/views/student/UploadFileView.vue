@@ -1,30 +1,56 @@
 <template>
   <div>
+    请选择阶段项目：
+    <select id="select" v-model="processId">
+      <option v-for="(item, index) in processes" :key="item.id" :value="item.id">
+        {{ item.processName }}
+      </option>
+    </select>
+    <br />
+    <br />
     <input type="file" @change="onFileChange" /> <br />
     <br />
-    <button @click="uploadFile">上传文件</button> <br />
-    <br />
-    <button @click="fn()">点击获取store的processId</button>
+    <button @click="uploadFile">确认上传</button> <br />
   </div>
 </template>
 
 <script lang="ts">
 import axios from '@/axios/index'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useCounterStore } from '@/stores/counter'
-const store = useCounterStore()
-const processId = store.processId
-const msg = ref<string>('')
 export default {
+  setup() {
+    const store = useCounterStore()
+    const processes = ref([])
+    const msg = ref<string>('')
+    const processId = ref(null)
+    onMounted(() => {
+      if (store.processes.length > 0) {
+        processes.value = store.processes
+        return
+      }
+      axios({
+        method: 'get',
+        url: '/student/process'
+      }).then((response) => {
+        const data = response.data.data.processes
+        processes.value = data
+        store.processes = data
+      })
+    })
+    return {
+      processes,
+      msg,
+      processId
+    }
+  },
+
   data() {
     return {
       file: null
     }
   },
   methods: {
-    fn() {
-      console.log(store.login)
-    },
     onFileChange(event) {
       this.file = event.target.files[0]
     },
@@ -33,16 +59,20 @@ export default {
         alert('请选择文件')
         return
       }
+      if (this.processId == null) {
+        alert('未选择阶段项目')
+        return
+      }
       const formData = new FormData()
       formData.append('file', this.file)
       axios
-        .post(`/student/upload/${processId}`, formData)
+        .post(`/student/upload/${this.processId}`, formData) // Use this.processId
         .then((response) => {
           if (response.data.code === 200) {
             alert('文件上传成功！')
           } else {
-            msg.value = response.data.message
-            alert(msg.value)
+            this.msg = response.data.message
+            alert(this.msg)
           }
         })
         .catch((error) => {

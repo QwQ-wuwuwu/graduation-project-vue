@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { reactive, ref } from 'vue'
-import { useCounterStore } from '@/stores/counter'
-const store = useCounterStore()
 const count = ref<number>(0)
 let number = 0
 const sum = ref<number>(0)
@@ -32,6 +30,9 @@ function addProcess() {
     optionProcess.items.push(item) // 用于页面展示
     sum.value += parseFloat(item.score) // 防止拼接成字符串
     count.value--
+    newItem.name = ''
+    newItem.score = 0
+    newItem.detail = ''
   } else {
     alert('继续上传请重新设置“项目数量”大于0')
     return
@@ -59,12 +60,9 @@ function fn() {
     data: process
   }).then((response) => {
     const code = response.data.code
-    const processId = response.data.data.process.id
-    console.log(processId)
-    store.setProcessId(processId) // 添加全局变量过程id号
-    console.log('set完成' + store.processId)
     if (code === 200) {
       alert('添加成功！\n' + '现阶段是' + process.processName)
+      location.reload() // 刷新页面
       return
     }
     alert('添加失败')
@@ -72,6 +70,7 @@ function fn() {
 }
 function shanchu(index) {
   optionProcess.items.splice(index, 1)
+  count.value++
 }
 </script>
 <template>
