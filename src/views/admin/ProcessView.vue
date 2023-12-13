@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import axios from 'axios'
 import { reactive, ref } from 'vue'
+import { useCounterStore } from '@/stores/counter'
+const store = useCounterStore()
 const count = ref<number>(0)
 let number = 0
 const sum = ref<number>(0)
@@ -62,6 +64,7 @@ function fn() {
     const code = response.data.code
     if (code === 200) {
       alert('添加成功！\n' + '现阶段是' + process.processName)
+      store.processName = process.processName
       location.reload() // 刷新页面
       return
     }

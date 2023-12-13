@@ -19,7 +19,7 @@ const router = createRouter({
           component: () => import('@/views/user/PasswordView.vue')
         }
       ],
-      redirect: '/student/info' // 默认路由
+      // redirect: '/student/info' // 默认路由
     },
     {
       path: '/admin',
@@ -62,6 +62,14 @@ const router = createRouter({
         {
           path: 'password',
           component: () => import('@/views/user/PasswordView.vue')
+        },
+        {
+          path: 'unSelected',
+          component: () => import('@/views/teacher/UnSelectedInfo.vue')
+        },
+        {
+          path: 'processScore',
+          component: () => import('@/views/teacher/ProcessScore.vue')
         }
       ]
     }

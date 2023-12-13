@@ -9,9 +9,9 @@ import { RouterView, RouterLink } from 'vue-router'
     <div class="sidebar">
       <RouterLink to="/teacher/selected">学生信息</RouterLink> <br />
       <br />
-      <RouterLink to="">未选名单</RouterLink> <br />
+      <RouterLink to="/teacher/unSelected">未选名单</RouterLink> <br />
       <br />
-      <RouterLink to="">审核/打分</RouterLink> <br />
+      <RouterLink to="/teacher/processScore">审核/打分</RouterLink> <br />
       <br />
       <RouterLink to="/teacher/password">修改密码</RouterLink>
     </div>

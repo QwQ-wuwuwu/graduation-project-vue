@@ -17,7 +17,6 @@ onMounted(() => {
       alert('页面数据获取失败')
     }
     students.values = response.data.data.students
-    console.log(students.values)
   }),
     axios({
       method: 'get',
@@ -78,7 +77,7 @@ async function exportStudentsToExcel() {
     <table>
       <thead>
         <tr>
-          <td>#</td>
+          <td>序号</td>
           <td>学工号</td>
           <td>所在的审核小组</td>
           <td>毕设题目</td>

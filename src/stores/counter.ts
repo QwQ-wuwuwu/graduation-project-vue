@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 export const useCounterStore = defineStore('counter', {
   state: () => ({
     login: false,
-    processes: []
+    processes: [],
+    processName: ''
   }),
   actions: {
     logined() {

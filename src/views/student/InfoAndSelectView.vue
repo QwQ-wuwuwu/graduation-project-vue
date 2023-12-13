@@ -40,11 +40,15 @@ async function select(item) {
 </script>
 <template>
   <div>
-    <h3>{{ msg || msg1 }}!</h3>
-    <table>
+    <table v-show="teachers.values.length > 0">
+      <caption>
+        {{
+          msg || msg1
+        }}!
+      </caption>
       <thead>
         <tr>
-          <th>#</th>
+          <th>序号</th>
           <th>姓名</th>
           <th>学工号</th>
           <th>剩余可选人数</th>
@@ -60,7 +64,5 @@ async function select(item) {
         </tr>
       </tbody>
     </table>
-    <hr />
-    <RouterLink to="/student/upload">上传文件</RouterLink>
   </div>
 </template>

@@ -4,7 +4,10 @@ import { RouterView, RouterLink } from 'vue-router'
   <div>
     <div class="header">
       <h3>我是学生模块菜单</h3>
-      <RouterLink to="/student/password">修改密码</RouterLink>
+      <RouterLink to="/student/upload">上传文件</RouterLink> <br />
+      <br />
+      <RouterLink to="/student/password" id="router">修改密码</RouterLink> <br> <br>
+      <RouterLink to="/student/info">选择导师</RouterLink>
     </div>
     <div class="meun">
       <RouterView></RouterView>
